@@ -1,6 +1,7 @@
 'use strict';
 
 const ServiceFactory = require('../model/ServiceFactory');
+const { selectFrequenciasPorColuna } = require('../model/sql/dezena');
 
 module.exports.previsoes = async(req, res) => {
 	try {
