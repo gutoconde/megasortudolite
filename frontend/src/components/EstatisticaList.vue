@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h3>Estatísticas do Mega-sortudo</h3>
+		<h3>Estatísticas do Mega-Sort&#x028A;do</h3>
     
     <b-alert :show="errors.length" variant="danger">
       <ul>
