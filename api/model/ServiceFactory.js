@@ -7,6 +7,7 @@ const RepositorioPrevisao = require('../model/RepositorioPrevisao');
 
 const ServicoSimulacao = require('../model/ServicoSimulacao');
 const ServicoResultado = require('../model/ServicoResultado');
+const ServicoCarga = require('../model/ServicoCarga');
 
 class ServiceFactory {
 
@@ -47,6 +48,12 @@ class ServiceFactory {
         );
     }
 
+    static getServicoCarga(db) {
+        return new ServicoCarga(
+            this.getRepositorioResultado(db), this.getRepositorioExecucao(db),
+            this.getRepositorioDezena(db), this.getRepositorioConcurso(db),
+            this.getServicoResultado(db));
+    }
 };
 
 module.exports = ServiceFactory;

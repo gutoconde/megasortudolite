@@ -22,3 +22,8 @@ routes(app);
 app.listen(port, () => {
     console.log(`Servico iniciado na porta ${port}!`);
 });
+
+//Tarefas Agendadas
+var tasks = require('./administracao/TarefasAgendadas');
+tasks(db);
+
