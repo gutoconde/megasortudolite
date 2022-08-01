@@ -33,8 +33,6 @@ services:
       - megasortudoapi
     networks:
       - app-network
-volumes:
-  db:
 networks:
   app-network:
     driver: bridge
