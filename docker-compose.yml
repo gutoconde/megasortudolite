@@ -1,0 +1,40 @@
+#PROJETO MEGASORTUDOLITE
+#CONTEM API (COM BANCO DE DADOS SQLITE) E FRONTEND
+#Execute o comando a seguir na raiz do projeto para criar as imagens:
+#>docker-compose up -d --build
+#Para enviar as imagens para o docker-hub
+#>docker-compose push
+version: "3.8"
+services:
+  megasortudoapi:
+    restart: always
+    environment:
+      - MEGASORTUDO_API_PORT=${MEGASORTUDO_API_PORT}
+      - MEGASORTUDO_API_PORT=${MEGASORTUDO_API_PORT}
+    container_name: "megasortudoapi"
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    image: gutoconde/megasortudoapi:1.0
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+  megasortudo:
+    restart: always
+    container_name: "megasortudo"
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: gutoconde/megasortudo:1.0
+    ports:
+      - "80:80"
+    depends_on:
+      - megasortudoapi
+    networks:
+      - app-network
+volumes:
+  db:
+networks:
+  app-network:
+    driver: bridge
