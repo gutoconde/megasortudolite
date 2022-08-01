@@ -16,8 +16,7 @@
     "portal-vue": "^2.1.7",
     "vue": "^2.6.14",
     "vue-router": "^3.5.4",
-    "vuex": "^3.6.2",
-    "@vue/cli-service": "~5.0.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
