@@ -9,7 +9,7 @@ services:
   megasortudoapi:
     restart: always
     environment:
-      - MEGASORTUDO_API_PORT=${MEGASORTUDO_API_PORT}
+      - MEGASORTUDO_DBSOURCE=${MEGASORTUDO_DBSOURCE}
       - MEGASORTUDO_API_PORT=${MEGASORTUDO_API_PORT}
     container_name: "megasortudoapi"
     build: 
