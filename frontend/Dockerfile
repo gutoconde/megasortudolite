@@ -5,8 +5,9 @@
 
 #build stage
 FROM node:14-alpine as build-stage
-#RUN apk update
-#RUN apk add git
+RUN apk update
+RUN apk upgrade
+RUN apk add git
 WORKDIR /frontend
 COPY package*.json ./
 RUN npm install
