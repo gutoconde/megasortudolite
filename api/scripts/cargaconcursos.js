@@ -39,7 +39,7 @@ module.exports.execute = async() => {
     }
 
     var concursoInicial = 10;
-    var concursoFinal = 2503;
+    var concursoFinal = 2703;
     
     await executorCarga.carregarDezenas(db);
     for(var concurso = concursoInicial; concurso <= concursoFinal; concurso++ ) {  
