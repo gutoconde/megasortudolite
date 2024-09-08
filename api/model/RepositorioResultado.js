@@ -80,7 +80,7 @@ class RepositorioResultado {
                 }
             });
         });
-        return resultado;
+        return resultado !== null ? resultado : 0 ;
     }
 
     retornarResultadoConcurso(concurso) {

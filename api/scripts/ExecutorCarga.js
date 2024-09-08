@@ -31,6 +31,16 @@ module.exports.recuperarPaginaResultados = async (url) => {
     return html;
 };
 
+module.exports.limparTudo = async(db) => {
+    await serviceFactory.getRepositorioPrevisao(db).deletePrevisoes();
+    await serviceFactory.getRepositorioConcurso(db).deleteAll();
+    await serviceFactory.getRepositorioResultado(db).deleteResultados();
+    await serviceFactory.getRepositorioDezena(db).deleteDezenaFrequencia();
+    await serviceFactory.getRepositorioDezena(db).deleteDezenaIndice();
+    await serviceFactory.getRepositorioDezena(db).deleteDezenas();
+    return ;
+};
+
 module.exports.limparResultados = async(db) => {
     return await serviceFactory.getRepositorioResultado(db).deleteResultados();
 };

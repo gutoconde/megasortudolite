@@ -9,7 +9,7 @@
         "simulacao": "node ./scripts/simulacao.js",
         "cargaconcursos": "node ./scripts/cargaconcursos.js",
         "cargadiaria": "node --inspect ./scripts/cargadiaria.js",
-        "cargaconcursos-dbg": "node --inspect ./scripts/cargaconcursos.js",
+        "cargaconcursos": "node --inspect ./scripts/cargaconcursos.js",
         "test": "mocha --recursive"
     },
     "keywords": [

@@ -13,6 +13,7 @@ class ServicoResultado {
         for(var concurso = 1; concurso <= ultimoResultado.numero; concurso++) {
             await this.carregarResultadoConcurso(loteria, concurso);
         }
+        return ultimoResultado.numero;
     }
 
     async recuperarUltimoResultado() {

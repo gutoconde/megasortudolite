@@ -4,6 +4,8 @@ const path = require('path');
 require('dotenv').config();
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 const config = require('./config');
+const ServiceFactory = require('../model/ServiceFactory');
+
 
 const db = require('../integracao/Database');
 const executorCarga = require('./ExecutorCarga');
@@ -13,33 +15,22 @@ const FINALIZADA_COM_SUCESSO = 2;
 const FINALIZADA_COM_ERRO = 3;
 
 module.exports.execute = async() => {
-    
+    var ultimoResultadoCarregado = null;
     try {
-        /** 
-        console.log('Executando Download do arquivo de resultados...');
-        var html = await executorCarga.recuperarPaginaResultados(config.appOptions.url); 
-        console.log('Página de resultados recuperada com sucesso.');   
+        console.log('Limpando banco de dados...');
+        await executorCarga.limparTudo(db);
+        console.log('Banco de dados limpo.');
+
+        console.log('Carregando resultados...');
+        ultimoResultadoCarregado = await ServiceFactory.getServicoResultado(db).carregarTodosConcursos('megasena');
+        console.log('Resultados carregados ate o concurso ' + ultimoResultadoCarregado);
     
-
-        console.log('Limpando tabela de resultados...');
-        await executorCarga.limparResultados(db);
-        console.log('Tabela de resultados limpa.');
-    
-
-        console.log('Executando carga dos resultados na base de dados...');  
-        await executorCarga.carregarResultadoMegasena(html, db);
-        console.log('Resultados carregados com sucesso.');
-        */
-        console.log('Executando carga dos resultados na base de dados...');  
-        //await executorCarga.carregarTodosConcursos(db);
-        console.log('Resultados carregados com sucesso.');
-
     } catch(error) {
         throw error;
     }
 
-    var concursoInicial = 10;
-    var concursoFinal = 2703;
+    var concursoInicial = 2000;
+    var concursoFinal = ultimoResultadoCarregado !== null ? ultimoResultadoCarregado : concursoInicial - 1;
     
     await executorCarga.carregarDezenas(db);
     for(var concurso = concursoInicial; concurso <= concursoFinal; concurso++ ) {  

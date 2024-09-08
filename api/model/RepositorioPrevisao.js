@@ -7,6 +7,19 @@ class RepositorioPrevisao {
 		this.db = db;
 	}
 
+	deletePrevisoes() {
+		const promise = new Promise((resolve, reject) => {
+            this.db.run(sql.deletePrevisoes, (error) => {
+                if(error) {
+                    reject(error);
+                } else {
+                    resolve(true);
+                }
+            });
+        });
+        return promise;
+	}
+
 	listarPrevisoes() {
 		const previsoes = new Promise((resolve, reject) => {
 			this.db.all(sql.previsoes, (error, result) => {
@@ -88,17 +101,52 @@ class RepositorioPrevisao {
 					for(var i = 0; i < result.length; i++) {
 						dezenas.push(result[i].DEZENA);
 					}
-					
-					var previsao = {
-						'numero_concurso' : result[0].NUMERO,
-						'dezenas' : dezenas
-					};
+					var previsao = null;
+					if(result.length > 0) {
+						var previsao = {
+							'numero_concurso' : result[0].NUMERO,
+							'dezenas' : dezenas
+						};
+					}
 					resolve(previsao);	
 				}
 			});	
 		});
 		return ultimaPrevisao;
 	}
+
+	retornaUltimoConcursoProcessado() {
+		const ultimoProcessado = new Promise((resolve, reject) => {
+			this.db.get(sql.ultimoConcursoProcessado, (error, result) => {
+				if(error) {
+					reject(error);	
+				} else {
+					var ultimoConcursoProcessado = 0;
+					if(result.count > 0) {
+						ultimoConcursoProcessado = result[0].NUMERO !== null ? result[0].NUMERO : 0;
+					}
+					resolve(ultimoConcursoProcessado);	
+				}
+			});	
+		});
+		return ultimoProcessado;
+	}
+
+	isConcursoProcessado(numeroConcurso) {
+        var param = {
+            '$concurso' : numeroConcurso
+        };
+        const resultado = new Promise((resolve, reject) => {
+            this.db.get(sql.isConcursoProcessado, param, (error, result) => {
+                if(error) {
+                    reject(error);	
+                } else {
+                    resolve(result.count > 0 ? true : false);
+                }
+            });
+        });
+        return resultado;
+    }
 }
 
 module.exports = RepositorioPrevisao;

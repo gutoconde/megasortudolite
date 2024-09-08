@@ -9,6 +9,8 @@ const ServicoSimulacao = require('../model/ServicoSimulacao');
 const ServicoResultado = require('../model/ServicoResultado');
 const ServicoCarga = require('../model/ServicoCarga');
 
+const ServicoIntegracaoLoterias = require("../integracao/ServicoIntegracaoLoterias");
+
 class ServiceFactory {
 
     static getRepositorioResultado(db) {
@@ -52,7 +54,12 @@ class ServiceFactory {
         return new ServicoCarga(
             this.getRepositorioResultado(db), this.getRepositorioExecucao(db),
             this.getRepositorioDezena(db), this.getRepositorioConcurso(db),
+            this.getRepositorioPrevisao(db), 
             this.getServicoResultado(db));
+    }
+
+    static getServicoIntegracaoLoterias() {
+        return ServicoIntegracaoLoterias;
     }
 };
 

@@ -7,13 +7,14 @@ class ServicoCarga {
     constructor(
         repositorioResultado_, repositorioExecucao_,
         repositorioDezena_, repositorioConcurso_, 
+        repositorioPrevisao_, 
         servicoResultado_) {
 
         this.repositorioResultado = repositorioResultado_;
         this.repositorioExecucao = repositorioExecucao_;
         this.repositorioDezena = repositorioDezena_;
         this.repositorioConcurso = repositorioConcurso_;
-        
+        this.repositorioPrevisao = repositorioPrevisao_;
         this.servicoResultado = servicoResultado_; 
     }
 
@@ -30,7 +31,9 @@ class ServicoCarga {
         }
 
         var ultimoConcurso = await this.#retornaUltimoConcurso();
+        console.log('Ultimo concurso: ' + ultimoConcurso);
         var ultimoConcursoProcessado =  await this.#retornaUltimoConcursoProcessado();
+        console.log('Ultimo concurso processado: ' + ultimoConcursoProcessado);
         var concurso = ultimoConcursoProcessado + 1;
     
         for(concurso; concurso <= ultimoConcurso; concurso++) {
@@ -71,11 +74,11 @@ class ServicoCarga {
     }
 
     async #retornaUltimoConcursoProcessado(){
-        return await this.repositorioExecucao.retornaUltimoConcursoProcessado();
+        return this.repositorioPrevisao.retornaUltimoConcursoProcessado();
     }
 
     async #verificaConcursoProcessado(concurso){
-        return await this.repositorioExecucao.isConcursoProcessado(concurso);
+        return await this.repositorioPrevisao.isConcursoProcessado(concurso);
     };
 
     async #inicializaExecucao(concurso){
